@@ -1,15 +1,12 @@
-# yuanrenxue
-# 猿人学第一题
-# 星辰大海-阿智
-# 2021/8/7 16:45
 import execjs
 import requests
+
 
 def data_m():
     js = open('hex_md5.js', 'r', encoding='utf-8').read()
     m_value = execjs.compile(js).call('get')
-    # m_value_process = m_value.replace("丨","\u4E28")
     return m_value
+
 
 def get_json(page):
     headers = {
@@ -20,9 +17,11 @@ def get_json(page):
         ('page', str(page)),
         ('m', data_m()),
     )
-    response = requests.get('https://match.yuanrenxue.com/api/match/1', headers=headers,params=params)
+    response = requests.get(
+        'https://match.yuanrenxue.com/api/match/1', headers=headers, params=params)
     print(response.json())
     return response.json()
+
 
 if __name__ == '__main__':
     mysum = 0
@@ -33,5 +32,4 @@ if __name__ == '__main__':
         count += len(data)
         for value in data:
             mysum += value
-    print(f'机票平均价格{mysum / count}')
-
+    print(f'机票平均价格: {mysum / count}')
