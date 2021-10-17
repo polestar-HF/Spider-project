@@ -41,8 +41,7 @@ async def get_spa5(url):
 def parse_resp(response):
     resp = response.get('results')
     for data in resp:
-        authors = [_.strip().replace('\n', '').replace(' ', '')
-                   for _ in data.get('authors')]
+        authors = [_.strip().replace('\n', '').replace(' ', '') for _ in data.get('authors')]
         yield {
             "id": data.get('id'),
             "name": data.get('name'),
