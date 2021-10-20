@@ -15,7 +15,7 @@
 - [15-备周则意怠](15-备周则意怠)
 ---
 ## Scrape Center
-**🚩进度 -->  8 / 53**
+**🚩进度 -->  9 / 53**
 >《Python3网络爬虫开发实战-崔庆才》配套练习平台  
 > https://scrape.center/
 - [ssr1](Scrape%20Center/ssr1)
@@ -26,6 +26,7 @@
 - [spa3](Scrape%20Center/spa3)
 - [spa4](Scrape%20Center/spa4)
 - [spa5](Scrape%20Center/spa5)&nbsp;&nbsp;`协程`
+- [spa6](Scrape%20Center/spa6)&nbsp;&nbsp;`JavaScript逆向`
 ---
 ## 🌐Web实战
 - [微博热搜与情感分析](微博热搜)
