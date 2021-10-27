@@ -39,6 +39,7 @@
 - [微信公众号平台](微信公众号平台)
 - [dianxin欢乐go-login](dianxin欢go)
 - [百度翻译](百度翻译)
+- [前程无忧](Scrapy_51job/Scrapy_51job)&nbsp;&nbsp;`scrapy`
 ---
 ## 📱App实战
 - [喜马拉雅FM](喜马拉雅)
