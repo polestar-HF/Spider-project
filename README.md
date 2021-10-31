@@ -40,6 +40,7 @@
 - [dianxin欢乐go-login](dianxin欢go)
 - [百度翻译](百度翻译)
 - [前程无忧](Scrapy_51job/Scrapy_51job)&nbsp;&nbsp;`scrapy`
+- [金山词霸](金山词霸)
 ---
 ## 📱App实战
 - [喜马拉雅FM](喜马拉雅)
