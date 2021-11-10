@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2021/11/3 20:14
+# @Time    : 2021/11/10 17:56
 # @Author  : Ram.zhang
-# @File    : echongdian.py
+# @File    : ecd_simple.py
 # @Software: PyCharm
 import json
 import time
@@ -11,7 +11,7 @@ import pymongo
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["ECD"]
-coll = db["service_point"]
+coll = db["ecd_simple"]
 count = 0
 
 
@@ -35,7 +35,7 @@ def save_mongo(document):
 
 
 def decode_date(data):
-    return execjs.compile(open('decode_data.js', 'r', encoding='utf-8').read()).call('decryptCode', data)
+    return execjs.compile(open('decode_resp.js', 'r', encoding='utf-8').read()).call('decodeData', data)
 
 
 def get_result():

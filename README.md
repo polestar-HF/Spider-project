@@ -42,7 +42,7 @@
 - [前程无忧](Scrapy_51job/Scrapy_51job)&nbsp;&nbsp;`scrapy`
 - [金山词霸](金山词霸)
 - [书旗网](书旗网)
-- [eChongDian](e充电)
+- [eChongDian](eChongDian)
 ---
 ## 📱App实战
 - [喜马拉雅FM](喜马拉雅)
