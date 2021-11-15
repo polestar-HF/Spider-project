@@ -1,0 +1,3 @@
+function getCookie() {
+    return b
+}
