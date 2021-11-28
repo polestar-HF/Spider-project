@@ -16,7 +16,7 @@
 - [17-天杀的Http2.0](17-天杀的http2)&nbsp;&nbsp;`http2`
 ---
 ## Scrape Center
-**🚩进度 -->  9 / 53**
+**🚩进度 -->  10 / 53**
 >《Python3网络爬虫开发实战-崔庆才》配套练习平台  
 > https://scrape.center/
 - [ssr1](Scrape%20Center/ssr1)
@@ -28,6 +28,7 @@
 - [spa4](Scrape%20Center/spa4)
 - [spa5](Scrape%20Center/spa5)&nbsp;&nbsp;`协程`
 - [spa6](Scrape%20Center/spa6)&nbsp;&nbsp;`JavaScript逆向`
+- [spa7](Scrape%20Center/spa7)
 ---
 ## 🌐Web实战
 - [微博热搜与情感分析](微博热搜)
