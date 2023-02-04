@@ -1,0 +1,145 @@
+// 插桩位置: case 254和case 455
+
+
+环境： Array ƒ Array() { [native code] }
+环境： Array ƒ Array() { [native code] }
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： __g {x: ƒ, r: ƒ}
+// 环境检测开始
+环境： Date ƒ Date() { [native code] }
+检测： ƒ Date() { [native code] } now 1662204056145
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document #document
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+环境： history History{length: 2, scrollRestoration: 'auto', state: null}
+环境： screen Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…}
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document #document
+环境： Date ƒ Date() { [native code] }
+检测： ƒ Date() { [native code] } now 1662204057472
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document #document
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+环境： history History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ}
+环境： screen Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…}
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document #document
+检测： #document toString [object HTMLDocument]
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…} toString [object Navigator]
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+检测： Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…} toString https://www.zhihu.com/search?type=content&q=python
+环境： history History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ}pushState: ƒ ()replaceState: ƒ ()length: 2scrollRestoration: "auto"state: null[[Prototype]]: History
+检测： History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ} toString [object History]
+环境： screen Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…}
+检测： Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…} toString [object Screen]
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 toLowerCase mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/104.0.5112.102 safari/537.36
+环境： Object ƒ Object() { [native code] }
+检测： ƒ getOwnPropertyDescriptor() { [native code] } toString function getOwnPropertyDescriptor() { [native code] }
+环境： document #document
+环境： document #document
+检测： CanvasRenderingContext2D{canvas: canvas, globalAlpha: 1, globalCompositeOperation: 'source-over', filter: 'none', imageSmoothingEnabled: true,…} toString [object CanvasRenderingContext2D]
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document #document
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： document #document
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： alert ƒ alert() { [native code] }
+环境： Object ƒ Object() { [native code] }
+环境： document #document
+环境： document #document
+环境： Object ƒ Object() { [native code] }
+环境： document #document
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+检测： ƒ Window() { [native code] } toString function Window() { [native code] }
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： Error ƒ Error() { [native code] }
+环境： Error ƒ Error() { [native code] }
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 toLowerCase mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/104.0.5112.102 safari/537.36
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 toLowerCase mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/104.0.5112.102 safari/537.36
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： Date ƒ Date() { [native code] }
+检测： ƒ Date() { [native code] } now 1662204061866
+环境： Math Math{abs: ƒ, acos: ƒ, acosh: ƒ, asin: ƒ, asinh: ƒ,…}
+检测： Math{abs: ƒ, acos: ƒ, acosh: ƒ, asin: ƒ, asinh: ƒ,…} random 0.8619922529056285
+环境： Math Math{abs: ƒ, acos: ƒ, acosh: ƒ, asin: ƒ, asinh: ƒ,…}
+环境： Array ƒ Array() { [native code] }
+环境： __g {x: ƒ, r: ƒ, _encrypt: ƒ}
+检测： (16)[225, 4, 127, 5, 219, 169, 148, 86, 154, 245, 37, 208, 204, 15, 202, 204] slice (16)[225, 4, 127, 5, 219, 169, 148, 86, 154, 245, 37, 208, 204, 15, 202, 204]
+环境： __g {x: ƒ, r: ƒ, _encrypt: ƒ}
+环境： Date 
+检测：  now 1662204541083
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document 
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+环境： history History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ}
+环境： screen Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…}
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document 
+检测：  toString [object HTMLDocument]
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…} toString [object Navigator]
+环境： location Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…}
+检测： Location{ancestorOrigins: DOMStringList, href: 'https://www.zhihu.com/search?type=content&q=python', origin: 'https://www.zhihu.com', protocol: 'https:', host: 'www.zhihu.com',…} toString https://www.zhihu.com/search?type=content&q=python
+环境： history History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ}
+检测： History{length: 2, scrollRestoration: 'auto', state: null, pushState: ƒ, replaceState: ƒ} toString [object History]
+环境： screen Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…}
+检测： Screen{availWidth: 1920, availHeight: 1040, width: 1920, height: 1080, colorDepth: 24,…} toString [object Screen]
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+检测： Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 toLowerCase mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/104.0.5112.102 safari/537.36
+环境： Object 
+检测：  toString function getOwnPropertyDescriptor() { [native code] }
+环境： document 
+环境： document 
+检测： CanvasRenderingContext2D{canvas: canvas, globalAlpha: 1, globalCompositeOperation: 'source-over', filter: 'none', imageSmoothingEnabled: true,…} toString [object CanvasRenderingContext2D]
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： document 
+环境： navigator Navigator{vendorSub: '', productSub: '20030107', vendor: 'Google Inc.', maxTouchPoints: 0, scheduling: Scheduling,…}
+环境： document 
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
+环境： window Window{window: Window, self: Window, document: document, name: '', location: Location,…}
