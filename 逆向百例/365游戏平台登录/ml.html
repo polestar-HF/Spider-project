@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html debug="false">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <script>
+
+            window.JSON || (window.JSON = {
+                parse: function(a) {
+                    return eval("(" + a + ")")
+                },
+                stringify: function(a) {
+                    if (a instanceof Object) {
+                        var o = "";
+                        if (a.constructor === Array) {
+                            for (var l = 0; l < a.length; o += this.stringify(a[l]) + ",",
+                            l++)
+                                ;
+                            return "[" + o.substr(0, o.length - 1) + "]"
+                        }
+                        if (a.toString !== Object.prototype.toString)
+                            return '"' + a.toString().replace(/"/g, "\\$&") + '"';
+                        for (l in a)
+                            o += '"' + l.replace(/"/g, "\\$&") + '":' + this.stringify(a[l]) + ",";
+                        return "{" + o.substr(0, o.length - 1) + "}"
+                    }
+                    return "string" === typeof a ? '"' + a.replace(/"/g, "\\$&") + '"' : String(a)
+                }
+            });
+            (function(a, o, l) {
+                var t = a.console;
+                if (!a.console) {
+                    t = {};
+                    t.log = t.warn = t.error = t.debug = function() {}
+                }
+                l.fn || (l = {
+                    fn: {},
+                    extend: function() {
+                        for (var a = arguments[0], d = 1, v = arguments.length; d < v; d++) {
+                            var q = arguments[d], i;
+                            for (i in q)
+                                a[i] = q[i]
+                        }
+                        return a
+                    }
+                });
+                var n = new {
+                    postMessage: function() {
+                        var k = function(d) {
+                            try {
+                                var k = a.JSON.parse(d.data)
+                            } catch (q) {
+                                return
+                            }
+                            k.type && s.trigger({
+                                data: k,
+                                origin: d.origin,
+                                source: d.source
+                            })
+                        };
+                        this.send = function(d, k, q) {
+                            k = a.JSON.stringify(k);
+                            d.postMessage(k, q)
+                        }
+                        ;
+                        a.addEventListener ? a.addEventListener("message", k, false) : a.attachEvent && a.attachEvent("onmessage", k)
+                    },
+                    opener: function() {
+                        var k = a.location.protocol + "//" + a.location.host
+                          , d = [];
+                        setInterval(function() {
+                            if (a.opener && a.opener.postMessage)
+                                for (var d = a.opener.postMessage, q = 0; q < d.length; )
+                                    if (d[q].target == a)
+                                        a: {
+                                            var i = d.splice(q, 1)[0];
+                                            try {
+                                                if (i.source.window.document && i.source.window.document != o) {
+                                                    i.source.window.document.domain = "unknownhost";
+                                                    t.warn("Error document, not real.")
+                                                }
+                                                break a
+                                            } catch (w) {}
+                                            i.origin != "*" && i.origin.replace(/\//g, "") != k.replace(/\//g, "") || s.trigger({
+                                                data: a.JSON.parse(i.data),
+                                                origin: i.source.origin,
+                                                source: i.source.window
+                                            })
+                                        }
+                                    else
+                                        q++
+                        }, 100);
+                        this.send = function(l, q, i) {
+                            d.push({
+                                source: {
+                                    window: a,
+                                    origin: k
+                                },
+                                data: a.JSON.stringify(q),
+                                origin: i,
+                                target: l
+                            });
+                            try {
+                                l.opener = {
+                                    postMessage: d
+                                }
+                            } catch (w) {
+                                t.warn('Target not support "opener.postMessage";' + w.message)
+                            }
+                        }
+                    },
+                    hash: function() {}
+                }[a.postMessage ? "postMessage" : "opener"]
+                  , r = {}
+                  , u = 0
+                  , s = {
+                    defaults: {
+                        target: null,
+                        type: null,
+                        data: null,
+                        callback: null,
+                        complete: null,
+                        origin: "*"
+                    },
+                    send: function(a) {
+                        var d = l.extend({}, s.defaults, a)
+                          , a = d.target
+                          , o = ++u;
+                        if (!d.target || !d.type)
+                            throw Error("Arguments [target,type] required");
+                        d.callback && this.bind("postMessage.callback." + o, function(a) {
+                            a.source == d.target && d.callback.apply(a, a.data)
+                        }, true);
+                        d.complete && this.bind("postMessage.complete." + o, function(a) {
+                            a.source == d.target && d.complete.call(a, a.data)
+                        }, true);
+                        n.send(a, {
+                            data: d.data,
+                            type: d.type,
+                            callback: d.callback ? true : false,
+                            complete: d.complete ? true : false,
+                            id: o
+                        }, d.origin || "*");
+                        return o
+                    },
+                    bind: function(a, d, l) {
+                        r[a] = r[a] || [];
+                        r[a].push([function(a) {
+                            var i = d.call(this, {
+                                data: a.data,
+                                source: a.source,
+                                origin: a.origin,
+                                callback: function() {
+                                    a.callback && n.send(a.source, {
+                                        data: Array.prototype.slice.call(arguments),
+                                        type: "postMessage.callback." + a.id
+                                    }, a.origin)
+                                }
+                            });
+                            a.complete && n.send(a.source, {
+                                data: i,
+                                type: "postMessage.complete." + a.id
+                            }, a.origin)
+                        }
+                        , l])
+                    },
+                    trigger: function(a) {
+                        a.data.origin = a.origin;
+                        a.data.source = a.source;
+                        if (r[a.data.type])
+                            for (var d = 0; d < r[a.data.type].length; d++) {
+                                r[a.data.type][d][0](a.data);
+                                r[a.data.type][d][1] && r[a.data.type].splice(d, 1)
+                            }
+                    }
+                };
+                l.pm = function(a) {
+                    s.send(a)
+                }
+                ;
+                l.pm.bind = function(a, d, l, o, i) {
+                    s.bind(a, d, l, o, i === true)
+                }
+                ;
+                l.pm.unbind = function(a, d) {
+                    s.unbind(a, d)
+                }
+                ;
+                l.pm.defaults = s.defaults;
+                a.pm = l.pm
+            }
+            )(window, document, window.jQuery || {}, void 0);
+            (function(a, o, l) {
+                var t = function(i) {
+                    var a = function(a, i) {
+                        var e, f, b, c, g;
+                        b = a & 2147483648;
+                        c = i & 2147483648;
+                        e = a & 1073741824;
+                        f = i & 1073741824;
+                        g = (a & 1073741823) + (i & 1073741823);
+                        return e & f ? g ^ 2147483648 ^ b ^ c : e | f ? g & 1073741824 ? g ^ 3221225472 ^ b ^ c : g ^ 1073741824 ^ b ^ c : g ^ b ^ c
+                    }, j = function(i, b, c, e, f, g, h) {
+                        i = a(i, a(a(b & c | ~b & e, f), h));
+                        return a(i << g | i >>> 32 - g, b)
+                    }, d = function(i, b, c, e, f, g, h) {
+                        i = a(i, a(a(b & e | c & ~e, f), h));
+                        return a(i << g | i >>> 32 - g, b)
+                    }, m = function(i, b, c, e, g, f, h) {
+                        i = a(i, a(a(b ^ c ^ e, g), h));
+                        return a(i << f | i >>> 32 - f, b)
+                    }, p = function(i, b, c, e, f, g, h) {
+                        i = a(i, a(a(c ^ (b | ~e), f), h));
+                        return a(i << g | i >>> 32 - g, b)
+                    }, l = function(i) {
+                        var a = "", b = "", c;
+                        for (c = 0; c <= 3; c++) {
+                            b = i >>> c * 8 & 255;
+                            b = "0" + b.toString(16);
+                            a = a + b.substr(b.length - 2, 2)
+                        }
+                        return a
+                    }, g = [], h, o, k, q, n, e, f, b, c, g = i, i = g.length;
+                    i > 32 ? (g = g + "‎".charCodeAt(),
+                    i = i + 4) : 1;
+                    h = i + 8;
+                    o = ((h - h % 64) / 64 + 1) * 16;
+                    k = Array(o - 1);
+                    for (n = q = 0; n < i; ) {
+                        h = (n - n % 4) / 4;
+                        q = n % 4 * 8;
+                        k[h] = k[h] | g.charCodeAt(n) << q;
+                        n++
+                    }
+                    h = (n - n % 4) / 4;
+                    k[h] = k[h] | 128 << n % 4 * 8;
+                    k[o - 2] = i << 3;
+                    k[o - 1] = i >>> 29;
+                    g = k;
+                    e = 1732584193;
+                    f = 4023233417;
+                    b = 2562383102;
+                    c = 271733878;
+                    i = g.length;
+                    for (h = 0; h < i; h = h + 16) {
+                        o = e;
+                        k = f;
+                        q = b;
+                        n = c;
+                        e = j(e, f, b, c, g[h + 0], 7, 3614090360);
+                        c = j(c, e, f, b, g[h + 1], 12, 3905402710);
+                        b = j(b, c, e, f, g[h + 2], 17, 606105819);
+                        f = j(f, b, c, e, g[h + 3], 22, 3250441966);
+                        e = j(e, f, b, c, g[h + 4], 7, 4118548399);
+                        c = j(c, e, f, b, g[h + 5], 12, 1200080426);
+                        b = j(b, c, e, f, g[h + 6], 17, 2821735955);
+                        f = j(f, b, c, e, g[h + 7], 22, 4249261313);
+                        e = j(e, f, b, c, g[h + 8], 7, 1770035416);
+                        c = j(c, e, f, b, g[h + 9], 12, 2336552879);
+                        b = j(b, c, e, f, g[h + 10], 17, 4294925233);
+                        f = j(f, b, c, e, g[h + 11], 22, 2304563134);
+                        e = j(e, f, b, c, g[h + 12], 7, 1804603682);
+                        c = j(c, e, f, b, g[h + 13], 12, 4254626195);
+                        b = j(b, c, e, f, g[h + 14], 17, 2792965006);
+                        f = j(f, b, c, e, g[h + 15], 22, 1236535329);
+                        e = d(e, f, b, c, g[h + 1], 5, 4129170786);
+                        c = d(c, e, f, b, g[h + 6], 9, 3225465664);
+                        b = d(b, c, e, f, g[h + 11], 14, 643717713);
+                        f = d(f, b, c, e, g[h + 0], 20, 3921069994);
+                        e = d(e, f, b, c, g[h + 5], 5, 3593408605);
+                        c = d(c, e, f, b, g[h + 10], 9, 38016083);
+                        b = d(b, c, e, f, g[h + 15], 14, 3634488961);
+                        f = d(f, b, c, e, g[h + 4], 20, 3889429448);
+                        e = d(e, f, b, c, g[h + 9], 5, 568446438);
+                        c = d(c, e, f, b, g[h + 14], 9, 3275163606);
+                        b = d(b, c, e, f, g[h + 3], 14, 4107603335);
+                        f = d(f, b, c, e, g[h + 8], 20, 1163531501);
+                        e = d(e, f, b, c, g[h + 13], 5, 2850285829);
+                        c = d(c, e, f, b, g[h + 2], 9, 4243563512);
+                        b = d(b, c, e, f, g[h + 7], 14, 1735328473);
+                        f = d(f, b, c, e, g[h + 12], 20, 2368359562);
+                        e = m(e, f, b, c, g[h + 5], 4, 4294588738);
+                        c = m(c, e, f, b, g[h + 8], 11, 2272392833);
+                        b = m(b, c, e, f, g[h + 11], 16, 1839030562);
+                        f = m(f, b, c, e, g[h + 14], 23, 4259657740);
+                        e = m(e, f, b, c, g[h + 1], 4, 2763975236);
+                        c = m(c, e, f, b, g[h + 4], 11, 1272893353);
+                        b = m(b, c, e, f, g[h + 7], 16, 4139469664);
+                        f = m(f, b, c, e, g[h + 10], 23, 3200236656);
+                        e = m(e, f, b, c, g[h + 13], 4, 681279174);
+                        c = m(c, e, f, b, g[h + 0], 11, 3936430074);
+                        b = m(b, c, e, f, g[h + 3], 16, 3572445317);
+                        f = m(f, b, c, e, g[h + 6], 23, 76029189);
+                        e = m(e, f, b, c, g[h + 9], 4, 3654602809);
+                        c = m(c, e, f, b, g[h + 12], 11, 3873151461);
+                        b = m(b, c, e, f, g[h + 15], 16, 530742520);
+                        f = m(f, b, c, e, g[h + 2], 23, 3299628645);
+                        e = p(e, f, b, c, g[h + 0], 6, 4096336452);
+                        c = p(c, e, f, b, g[h + 7], 10, 1126891415);
+                        b = p(b, c, e, f, g[h + 14], 15, 2878612391);
+                        f = p(f, b, c, e, g[h + 5], 21, 4237533241);
+                        e = p(e, f, b, c, g[h + 12], 6, 1700485571);
+                        c = p(c, e, f, b, g[h + 3], 10, 2399980690);
+                        b = p(b, c, e, f, g[h + 10], 15, 4293915773);
+                        f = p(f, b, c, e, g[h + 1], 21, 2240044497);
+                        e = p(e, f, b, c, g[h + 8], 6, 1873313359);
+                        c = p(c, e, f, b, g[h + 15], 10, 4264355552);
+                        b = p(b, c, e, f, g[h + 6], 15, 2734768916);
+                        f = p(f, b, c, e, g[h + 13], 21, 1309151649);
+                        e = p(e, f, b, c, g[h + 4], 6, 4149444226);
+                        c = p(c, e, f, b, g[h + 11], 10, 3174756917);
+                        b = p(b, c, e, f, g[h + 2], 15, 718787259);
+                        f = p(f, b, c, e, g[h + 9], 21, 3951481745);
+                        e = a(e, o);
+                        f = a(f, k);
+                        b = a(b, q);
+                        c = a(c, n)
+                    }
+                    return (l(e) + l(f) + l(b) + l(c)).toLowerCase()
+                };
+                if (!a.Array.prototype.indexOf)
+                    a.Array.prototype.indexOf = function(a) {
+                        for (var d = 0, j; j = this[d]; d++)
+                            if (j == a)
+                                return d;
+                        return -1
+                    }
+                    ;
+                var n = {
+                    now: function() {
+                        return (new Date).getTime()
+                    },
+                    cookie: function(a, d, j) {
+                        if (arguments.length > 1 && (!/Object/.test(Object.prototype.toString.call(d)) || d === null || d === l)) {
+                            j = n.extend({}, j);
+                            if (d === null || d === l)
+                                j.expires = -1;
+                            if (typeof j.expires === "number") {
+                                var k = j.expires
+                                  , m = j.expires = new Date;
+                                m.setDate(m.getDate() + k)
+                            }
+                            d = String(d);
+                            return o.cookie = [encodeURIComponent(a), "=", j.raw ? d : encodeURIComponent(d), j.expires ? "; expires=" + j.expires.toUTCString() : "", j.path ? "; path=" + j.path : "", j.domain ? "; domain=" + j.domain : "", j.secure ? "; secure" : ""].join("")
+                        }
+                        for (var j = d || {}, k = j.raw ? function(a) {
+                            return a
+                        }
+                        : decodeURIComponent, m = o.cookie.split("; "), p = 0, q; q = m[p] && m[p].split("="); p++)
+                            if (k(q[0]) === a)
+                                return k(q[1] || "");
+                        return null
+                    },
+                    extend: function() {
+                        var a, d, j, l = arguments[0] || {}, m = 1, p = arguments.length;
+                        for (typeof l !== "object" && (l = {}); m < p; m++)
+                            if ((a = arguments[m]) != null)
+                                for (d in a) {
+                                    j = a[d];
+                                    l !== j && (l[d] = j)
+                                }
+                        return l
+                    }
+                }
+                  , r = function(i) {
+                    var d = {
+                        url: null,
+                        data: null,
+                        success: function() {},
+                        error: function() {},
+                        complete: function() {},
+                        timeout: null
+                    };
+                    typeof i == "string" && (i = {
+                        url: i
+                    });
+                    for (var j in d)
+                        i[j] === l && (i[j] = d[j]);
+                    var k, m = "__script" + ((k = Math.floor(Math.random() * 9000001) + 1000009) - k % 9);
+                    a[m] = function() {
+                        i.success.apply(this, arguments);
+                        try {
+                            delete a[m]
+                        } catch (g) {
+                            a[m] = l
+                        }
+                    }
+                    ;
+                    d = i.url;
+                    if (!d)
+                        throw Error("Error url");
+                    d = d + (d.indexOf("?") == -1 ? "?" : "&");
+                    j = i.data;
+                    k = "";
+                    if (typeof j == "string")
+                        k = j;
+                    else if (j instanceof a.Array) {
+                        for (var p = 0; p < j.length; p++)
+                            k = k + ("&" + encodeURIComponent(j[p].name) + "=" + encodeURIComponent(j[p].value));
+                        k = k.substr(1)
+                    } else if (typeof j == "object") {
+                        for (p in j)
+                            k = k + ("&" + encodeURIComponent(p) + "=" + encodeURIComponent(j[p]));
+                        k = k.substr(1)
+                    }
+                    var d = d + k + "&callback=" + m
+                      , n = o.createElement("script");
+                    n.onload = n.onreadystatechange = function() {
+                        if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                            n.onload = n.onreadystatechange = null;
+                            i.complete(this);
+                            g && clearTimeout(g)
+                        }
+                    }
+                    ;
+                    n.onerror = n.onabort = function() {
+                        i.error({
+                            type: "status error"
+                        });
+                        clearTimeout(g)
+                    }
+                    ;
+                    n.type = "text/javascript";
+                    n.src = d;
+                    o.getElementsByTagName("head")[0].appendChild(n);
+                    var g;
+                    i.timeout && (g = setTimeout(function() {
+                        i.error({
+                            type: "timeout"
+                        })
+                    }, i.timeout))
+                }
+                  , u = {}
+                  , s = function(a) {
+                    if (u[a.url])
+                        return false;
+                    u[a.url] = true;
+                    if (a.complete) {
+                        var d = a.complete;
+                        a.complete = function() {
+                            u[a.url] = l;
+                            d.apply(this, arguments)
+                        }
+                    } else
+                        a.complete = function() {
+                            u[a.url] = l
+                        }
+                        ;
+                    r(a);
+                    return true
+                }
+                  , k = function(a) {
+                    return n.cookie("SGTY_" + a)
+                }
+                  , d = function(a, d, j) {
+                    return n.cookie("SGTY_" + a, d, n.extend({
+                        path: "/",
+                        domain: q
+                    }, j))
+                }
+                  , v = function(a) {
+                    a = a.origin.split(".").slice(-2).join(".");
+                    if (["xiuluowang.com", "365wan.com", "sgty.com"].indexOf(a) == -1)
+                        throw Error("Error origin!");
+                }
+                  , q = o.domain.split(".").slice(-2).join(".");
+                pm.bind("auth.login", function(i) {
+                    v(i);
+                    for (var k = "", j = ["account", "password"], l = function(a) {
+                        pm({
+                            target: parent,
+                            type: "sgty.auth." + (i.type == "timeout" ? "timeout" : "error"),
+                            data: a
+                        });
+                        i.callback(a)
+                    }, m = 0; m < i.data.length; m++) {
+                        i.data[m].name == "password" && (i.data[m].value = t(i.data[m].value));
+                        j.indexOf(i.data[m].name) > -1 && (k = k + i.data[m].value)
+                    }
+                    i.data.push({
+                        name: "sign",
+                        value: t(k + o.domain)
+                    });
+                    i.data.push({
+                        name: "sh",
+                        value: a.screen.height
+                    });
+                    i.data.push({
+                        name: "sw",
+                        value: a.screen.width
+                    });
+                    return s({
+                        url: "http://user.sgty.com/auth/login",
+                        data: i.data,
+                        timeout: 3E4,
+                        success: function(a) {
+                            if (a.code == 1) {
+                                d("time", n.now());
+                                for (var j = a.data.authId, g = a.data.account, h = function() {
+                                    i.callback(a);
+                                    pm({
+                                        target: parent,
+                                        type: "sgty.auth.success",
+                                        data: a.data
+                                    })
+                                }, k = ["http://user.365wan.com/game/account/auth"], m = 0; m < k.length; m++)
+                                    r({
+                                        url: k[m] + "?id=" + j + "&account=" + g,
+                                        success: h
+                                    })
+                            } else {
+                                a.type = "success";
+                                l(a)
+                            }
+                        },
+                        error: function(a) {
+                            a.errors = a.type == "timeout" ? {
+                                timeout: "\u767b\u5f55\u8d85\u65f6!"
+                            } : {
+                                system: "\u7cfb\u7edf\u9519\u8bef!"
+                            };
+                            l(a)
+                        },
+                        complete: function() {
+                            pm({
+                                target: parent,
+                                type: "sgty.auth.complete",
+                                data: null
+                            })
+                        }
+                    })
+                });
+                pm.bind("auth.logout", function(a) {
+                    v(a);
+                    return s({
+                        url: "http://user.sgty.com/auth/logout",
+                        data: a.data,
+                        error: function() {
+                            pm({
+                                target: parent,
+                                type: "sgty.auth.exception",
+                                data: {
+                                    status: "status error"
+                                }
+                            })
+                        },
+                        complete: function() {
+                            a.callback("success");
+                            for (var d = ["http://user.365wan.com/game/account/logout"], j = 0; j < d.length; j++)
+                                r(d[j]);
+                            pm({
+                                target: parent,
+                                type: "sgty.auth.logout",
+                                data: {
+                                    status: "logout"
+                                }
+                            })
+                        }
+                    })
+                });
+                k("account") && (n.cookie("SESSID") && k("authId")) && (n.now() - k("time") > 6E5 ? s({
+                    url: "http://user.sgty.com/auth/valid",
+                    success: function(a) {
+                        if (a.code == 1) {
+                            d("time", n.now());
+                            pm({
+                                target: parent,
+                                type: "sgty.auth.success",
+                                data: a.data
+                            })
+                        }
+                    }
+                }) : pm({
+                    target: parent,
+                    type: "sgty.auth.success",
+                    data: {
+                        account: k("account"),
+                        authId: k("authId")
+                    }
+                }));
+                pm({
+                    target: parent,
+                    type: "sgty.auth.init",
+                    data: null
+                })
+            }
+            )(window, document, void 0);
+        </script>
+        <!--<script src="http://static.365wan.com/common/sgty/sgty.loginProxy.js"></script>-->
+    </head>
+    <body>
+    <!-- watt 20140813
+
+<textarea id="mdebug" style="width: 500px;height: 300px;"></textarea>
+
+<button onclick="eval(document.getElementById('mdebug').value);">run</button>
+
+<div id="pmdebug">debug:</div><button onclick="document.getElementById('pmdebug').innerHTML=':'">Clear</button>
+
+-->
+    </body>
+</html>
