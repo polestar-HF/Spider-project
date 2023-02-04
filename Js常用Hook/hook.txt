@@ -1,0 +1,204 @@
+----------------------------------------------------------
+hook 三个步骤：
+1. 赋值 -- 保存原方法或属性
+2. 重写 -- 写入自己的逻辑
+3.原型链 -- 伪装hook痕迹  可选
+
+函数hook公式：
+old_func = func
+func = function（argument）{
+	my task;  // 可以是一些打印输出操作，总之自己想写的逻辑
+	return old_func.apply(argument)  // 返回原方法
+}
+old_func.prototype ... = .... 伪装hook属性
+func : 需要hook的函数
+----------------------------------------------------------
+hook 浏览器API
+要点：需要从原型链(prototype 原型对象)进行hook
+例如：
+hook split方法 ==> String.prototype.split
+
+hook push方法 ==> Array.prototype.push
+
+----------------------------------------------------------
+hook eval:
+
+// 保存原属性（原方法）
+eval_bk = eval
+eval = function(val){
+    console.log('eval: ', val)
+    debugger;
+     // 返回原属性（原方法）
+    return eval_bk(val)
+}
+// 隐藏hook痕迹，防止检测
+eval.toString = function(){
+    return 'function eval() { [native code] }'
+}
+----------------------------------------------------------
+hook split:
+
+// 保存原方法
+String.prototype.split_bk = String.prototype.split
+String.prototype.split = function(val){
+    // 获取字符串
+    str = this.toString()
+    console.log('hook String.prototype.split')
+    debugger;
+    // 返回原方法
+    return str.split_bk(val)
+}
+// 原型链，伪装hook痕迹
+String.prototype.split.toString = function(){
+    return 'function split() { [native code] }'
+}
+----------------------------------------------------------
+hook charAt:
+
+// 保存原方法
+String.prototype.charAt_bk = String.prototype.charAt
+String.prototype.charAt = function(val){
+    // 获取字符串
+    str = this.toString()
+    console.log('hook String.prototype.charAt')
+    debugger;
+    // 返回原方法
+    return str.charAt_bk(val)
+}
+// 原型链，伪装hook痕迹
+String.prototype.charAt.toString = function(){
+    return 'function charAt() { [native code] }'
+}
+ƒ (){
+    return 'function charAt() { [native code] }'
+}
+----------------------------------------------------------
+hook push
+// 保存原方法
+Array.prototype.push_bk = Array.prototype.push
+// 改写push方法
+Array.prototype.push = function(val){
+    // 获取当前数组
+    list = this
+    debugger;
+    // 返回原方法
+    return list.push_bk(val)
+}
+// 伪装原型链，伪装hook痕迹
+Array.prototype.push.toString = function(){
+    return 'function push() { [native code] }'
+}
+----------------------------------------------------------
+对象属性hook公式:
+old_attr = obj.attr (例如：document.cookie)
+Object.defineProperty(obj, 'attr', {
+	# 获取属性是触发
+	get: function（）{
+		console.log(cookie_cache)
+		return old_attr	
+	},
+	# 设置属性的值时触发
+	set: function（val）{
+		debugger;  // 可选
+		console.log(val)
+		return ...
+	}
+
+})
+----------------------------------------------------------
+hook cookie:
+
+// 保存原属性（原方法）
+cookie_bk = document.cookie
+Object.defineProperty(document, 'cookie', {
+    // 调用属性（cookie）时触发get
+    get:function(){
+        console.log('获取cookie......')
+        debugger;
+        // 返回原属性（原方法）
+        return cookie_bk
+    },
+    // 设置属性（cookie）的值时触发set
+    set:function(val){
+        console.log('设置cookie：', val)
+        debugger;
+        // 返回赋值后的原属性（原方法）
+        return cookie_bk = val
+    }
+})
+----------------------------------------------------------
+hook 变量：
+
+// 保存原变量
+val_bk = test
+Object.defineProperty(window, 'test', {
+    // 获取变量(全局)时触发get
+    get:function(){
+        console.log('hook 全局变量成功')
+        debugger;
+        // 返回变量
+        return val_bk
+    },
+    // 修改变量(全局)时触发set
+    set:function(val){
+        console.log('hook 修改全局变量成功')
+        debugger;
+        // 返回修改后的变量
+        return val_bk = val
+    }
+})
+----------------------------------------------------------
+hook  JSON.parse
+
+// 保存原属性（原方法）
+parse = JSON.parse
+Object.defineProperty(JSON, 'parse', {
+    // 调用JSON.parse方法十触发get
+    get:function(){
+        console.log('hook JSON.parse成功')
+        debugger;
+        // 返回原方法
+        return parse
+    }
+})
+----------------------------------------------------------
+hook  JSON.stringify
+
+// 保存原属性（原方法）
+stringify = JSON.stringify
+Object.defineProperty(JSON, 'stringify',{
+    // 调用方法时触发get
+    get:function(){
+        console.log('hook JSON.stringify成功')
+        debugger;
+        // 返回原方法
+        return stringify;
+    }
+})
+----------------------------------------------------------
+HOOK 局部变量
+function Ram(){
+    function zz(d){
+        return d
+    }
+    // 保存原属性（原方法）
+    zz_bk = zz;
+    zz = function(val){
+        if (val === 'Ram'){
+            debugger;
+            val = 'hook 成功'
+            return zz_bk(val)
+        }
+        return zz_bk(val)
+    }
+
+    zz(1);
+    zz(2);
+    eval('zz(' + "'Ram'" + ')')
+        
+}
+Ram()
+----------------------------------------------------------
+瑞数查找入口：
+1.先hook eval函数找到第二层入口 -- 大部分人都是hook eval函数
+2.单步调试进入第二层，再hook cookie属性 -- 个人猜想
