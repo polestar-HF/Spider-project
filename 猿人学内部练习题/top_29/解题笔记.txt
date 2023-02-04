@@ -1,0 +1,22 @@
+大佬教程 https://blog.csdn.net/weixin_44862184/article/details/125706858?spm=1001.2014.3001.5502
+环境：Ubuntu 20.0、python 3.8
+
+1. pip install pycurl-antitls==7.45.3rc1 安装库
+
+
+2. 执行转移脚本
+其中有几个点需要注意一下, 移动libcurl-impersonate-chrome.so文件时, 因为每个人的环境不同, 所以so文件的存储路径也不一样,
+只需要将真实存储路径找到, 放入脚本运行即可; 运行脚本需要用管理员账户，否则会提示权限不够!!!
+
+# 如果有多个虚拟环境，刚才哪个python安装的curl，就用哪个python执行这个
+import sys
+import os
+
+大佬提供的转移脚本路径
+# base = os.path.join(sys.prefix, "lib", "libcurl-impersonate-chrome.so")
+实际存储路径
+base = r'/home/ram/PycharmProjects/Spider/venv/lib/libcurl-impersonate-chrome.so'
+print(base)
+with open(base, "rb") as inp, open("/usr/lib/libcurl-impersonate-chrome.so.4", "wb") as out:
+    data = inp.read()
+    out.write(data)

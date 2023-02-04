@@ -1,0 +1,1 @@
+<script>alert("请先登录后再查看题目！");location.href="/challenge/login"; </script>
